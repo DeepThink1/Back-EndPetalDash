@@ -64,39 +64,5 @@ module.exports = {
 
     },
 
-    updateToDispatched(req, res) {
-        const order = req.body;
-
-        Order.updateToDispatched(order.id, order.id_delivery, (err, id_order) => {
-            if (err) {
-                return res.status(501).json({
-                    success: false,
-                    message: 'Hubo un error al momento de actualizar la orden',
-                    error: err
-                });
-            }
-
-            User.findById(order.id_delivery, (err, user) => {
-                
-                // if (user !== undefined && user !== null) {
-
-                //     console.log('NOTIFICATION TOKEN', user.notification_token);
-                //     PushNotificationsController.sendNotification(user.notification_token, {
-                //         title: 'PEDIDO ASIGNADO',
-                //         body: 'Te han asignado un pedido para entregar',
-                //         id_notification: '1'
-                //     });
-                // }
-
-            });
-            
-            return res.status(201).json({
-                success: true,
-                message: 'La orden se ha actualizado correctamente',
-                data: `${id_order}` // EL ID 
-            });
-
-        });
-    }
 
 }

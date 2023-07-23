@@ -106,3 +106,31 @@ CREATE TABLE address(
     id_user INT NOT NULL,
     FOREIGN KEY(id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE orders(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_client INT NOT NULL,
+    id_delivery INT NULL,
+    id_address INT NOT NULL,
+    lat DOUBLE PRECISION,
+    lng DOUBLE PRECISION,
+    status VARCHAR(90) NOT NULL,
+    timestamp BIGINT NOT NULL,
+    created_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL,
+    FOREIGN KEY(id_client) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_delivery) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_address) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE order_has_products(
+	id_order INT NOT NULL,
+    id_product INT NOT NULL,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL,
+    PRIMARY KEY(id_order, id_product),
+    FOREIGN KEY(id_order) REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_product) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
