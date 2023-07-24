@@ -97,7 +97,56 @@ module.exports = {
             });
 
         });
-    }
+    },
+
+    findByDeliveryAndStatus(req, res) {
+        const id_delivery = req.params.id_delivery;
+        const status = req.params.status;
+
+        Order.findByDeliveryAndStatus(id_delivery, status, (err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error al momento de listar las ordenes',
+                    error: err
+                });
+            }
+
+            for (const d of data) {
+                d.address = JSON.parse(d.address);
+                d.client = JSON.parse(d.client);
+                d.delivery = JSON.parse(d.delivery);
+                d.products = JSON.parse(d.products);
+            }
+            
+            
+            return res.status(201).json(data);
+        });
+    },
+
+    updateToOnTheWay(req, res) {
+        const order = req.body;
+
+
+        Order.updateToOnTheWay(order.id, (err, id_order) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error al momento de actualizar la orden',
+                    error: err
+                });
+            }
+
+            return res.status(201).json({
+                success: true,
+                message: 'La orden se ha actualizado correctamente',
+                data: `${id_order}` // EL ID 
+            });
+
+        });
+    },
+    
+    
 
 
 }
