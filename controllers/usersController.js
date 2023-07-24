@@ -66,6 +66,21 @@ module.exports = {
 
     },
 
+    findDeliveryMen(req, res) {
+        User.findDeliveryMen((err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error con al listar los repartidores',
+                    error: err
+                });
+            }
+
+            
+            return res.status(201).json(data);
+        });
+    },
+
     register(req, res) {
 
         const user = req.body; // CAPTURO LOS DATOS QUE ME ENVIE EL CLIENTE
@@ -230,6 +245,8 @@ module.exports = {
         });
 
     },
+
+
 
 }
 
