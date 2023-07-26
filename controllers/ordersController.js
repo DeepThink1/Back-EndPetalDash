@@ -171,6 +171,27 @@ module.exports = {
         });
     },
 
+    updateToDelivered(req, res) {
+        const order = req.body;
+
+        Order.updateToDelivered(order.id, (err, id_order) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error al momento de actualizar la orden',
+                    error: err
+                });
+            }
+
+            return res.status(201).json({
+                success: true,
+                message: 'La orden se ha actualizado correctamente',
+                data: `${id_order}` // EL ID 
+            });
+
+        });
+    },
+
     updateLatLng(req, res) {
         const order = req.body;
 
