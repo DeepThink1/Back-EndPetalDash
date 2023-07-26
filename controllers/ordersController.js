@@ -76,7 +76,8 @@ module.exports = {
                 });
             }
 
-            /*User.findById(order.id_delivery, (err, user) => {
+            /*
+            User.findById(order.id_delivery, (err, user) => {
                 
                 if (user !== undefined && user !== null) {
 
@@ -136,6 +137,44 @@ module.exports = {
                     error: err
                 });
             }
+
+            User.findById(order.id_delivery, (err, user) => {
+                
+                var botId = '107164202464909';
+                var phoneNbr = '52'+user.phone;
+                var bearerToken = 'EAAJhyk7dXrUBO3V0C2ZBu9BfoWSTtF8y41M3hWzHeuastIFVRujQfCnTs4KIDDZCZCfXjHUOTwliOqxk8WIBJgaOllZBK3ZAukZBERfFg9IHIIio4xZCAbUfV3CGdk6xut92UWwUXn3eENjIurU2R1oChZCBEVMgmmESlZBwmaYWMsZCqf4ikuxOsNUFHtfUctBgVsb8fRZBopUR3fAI0QZD';
+
+                var url = 'https://graph.facebook.com/v17.0/' + botId + '/messages';
+                var data2 = {
+                messaging_product: 'whatsapp',
+                to: phoneNbr,
+                type: 'template',
+                template: {
+                name:'hello_world',
+                language:{ code: 'en_US' }  
+                  }
+                };
+
+                var postReq = {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + bearerToken,
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify(data2),
+                json: true
+                };
+
+                fetch(url, postReq)
+                .then(data2 => {
+                return data2.json()
+                })
+                .then(res => {
+                console.log(res)
+                })
+                .catch(error => console.log(error));
+
+            });
 
             return res.status(201).json({
                 success: true,
