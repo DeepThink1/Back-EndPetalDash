@@ -118,7 +118,7 @@ module.exports = {
                 });
             }
 
-            
+
             return res.status(201).json(data);
         });
     },

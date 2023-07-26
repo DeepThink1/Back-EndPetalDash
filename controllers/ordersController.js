@@ -22,8 +22,33 @@ module.exports = {
                 d.delivery = JSON.parse(d.delivery);
                 d.products = JSON.parse(d.products);
             }
-            
-            
+
+
+            return res.status(201).json(data);
+        });
+    },
+
+    findByClientAndStatus(req, res) {
+        const id_client = req.params.id_client;
+        const status = req.params.status;
+
+        Order.findByClientAndStatus(id_client, status, (err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error al momento de listar las ordenes',
+                    error: err
+                });
+            }
+
+            for (const d of data) {
+                d.address = JSON.parse(d.address);
+                d.client = JSON.parse(d.client);
+                d.delivery = JSON.parse(d.delivery);
+                d.products = JSON.parse(d.products);
+            }
+
+
             return res.status(201).json(data);
         });
     },
@@ -90,7 +115,7 @@ module.exports = {
                 }
 
             });*/
-            
+
             return res.status(201).json({
                 success: true,
                 message: 'La orden se ha actualizado correctamente',
@@ -119,8 +144,8 @@ module.exports = {
                 d.delivery = JSON.parse(d.delivery);
                 d.products = JSON.parse(d.products);
             }
-            
-            
+
+
             return res.status(201).json(data);
         });
     },
@@ -185,6 +210,27 @@ module.exports = {
         });
     },
 
+    updateToDelivered(req, res) {
+        const order = req.body;
+
+        Order.updateToDelivered(order.id, (err, id_order) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error al momento de actualizar la orden',
+                    error: err
+                });
+            }
+
+            return res.status(201).json({
+                success: true,
+                message: 'La orden se ha actualizado correctamente',
+                data: `${id_order}` // EL ID 
+            });
+
+        });
+    },
+
     updateLatLng(req, res) {
         const order = req.body;
 
@@ -205,8 +251,5 @@ module.exports = {
 
         });
     },
-    
-    
-
 
 }
