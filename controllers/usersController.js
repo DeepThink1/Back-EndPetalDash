@@ -37,6 +37,47 @@ module.exports = {
             if (isPasswordValid) {
                 const token = jwt.sign({ id: myUser.id, email: myUser.email }, keys.secretOrKey, {});
 
+                //Aqui empeiza lo de whatsapp
+                /*
+
+                var botId = '107164202464909';
+                var phoneNbr = '52'+myUser.phone;
+                var bearerToken = 'EAAJhyk7dXrUBO3V0C2ZBu9BfoWSTtF8y41M3hWzHeuastIFVRujQfCnTs4KIDDZCZCfXjHUOTwliOqxk8WIBJgaOllZBK3ZAukZBERfFg9IHIIio4xZCAbUfV3CGdk6xut92UWwUXn3eENjIurU2R1oChZCBEVMgmmESlZBwmaYWMsZCqf4ikuxOsNUFHtfUctBgVsb8fRZBopUR3fAI0QZD';
+
+                var url = 'https://graph.facebook.com/v17.0/' + botId + '/messages';
+                var data2 = {
+                messaging_product: 'whatsapp',
+                to: phoneNbr,
+                type: 'template',
+                template: {
+                name:'hello_world',
+                language:{ code: 'en_US' }  
+                  }
+                };
+
+                var postReq = {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + bearerToken,
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify(data2),
+                json: true
+                };
+
+                fetch(url, postReq)
+                .then(data2 => {
+                return data2.json()
+                })
+                .then(res => {
+                console.log(res)
+                })
+                .catch(error => console.log(error));
+                */
+
+                //aqui termina lo de whatsaoo
+
+
                 const data = {
                     id: `${myUser.id}`,
                     name: myUser.name,
@@ -53,6 +94,7 @@ module.exports = {
                     message: 'El usuario fue autenticado',
                     data: data // EL ID DEL NUEVO USUARIO QUE SE REGISTRO
                 });
+                
 
             }
             else {
@@ -64,6 +106,21 @@ module.exports = {
 
         });
 
+    },
+
+    findDeliveryMen(req, res) {
+        User.findDeliveryMen((err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un error con al listar los repartidores',
+                    error: err
+                });
+            }
+
+
+            return res.status(201).json(data);
+        });
     },
 
     register(req, res) {
@@ -230,6 +287,8 @@ module.exports = {
         });
 
     },
+
+
 
 }
 
