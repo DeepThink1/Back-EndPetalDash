@@ -5,11 +5,11 @@ const db = mysql.createConnection({
     password: '123456789',
     database: 'app_delivery'*/
 
-    host: 'containers-us-west-172.railway.app',
-    user: 'root',
-    password: '3HtsEKTcZfBxDNgA0rAp',
-    database: 'railway',
-    port: 5731
+    host: 'br3qyzmhrrvwrrkubdh8-mysql.services.clever-cloud.com',
+    user: 'uu1h02dylut08ae7',
+    password: '0YRWsUXq8IJLEGg85D2K',
+    database: 'br3qyzmhrrvwrrkubdh8',
+    port: 3306
 }) 
 
 db.connect(function (err) {
