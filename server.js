@@ -60,7 +60,7 @@ addressRoutes(app, upload)
 orderRouters(app)
 
 
-server.listen(3000, '192.168.137.196' || 'localhost', function () {
+server.listen(3000,function () {
     console.log('Aplicacion de nodeJS ' + port + ' iniciada...')
 })
 
