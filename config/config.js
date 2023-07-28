@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     user: 'root',
     password: '3HtsEKTcZfBxDNgA0rAp',
     database: 'railway',
-    port: 5731
+    port: process.env.PORT || 5731
 })
 
 db.connect(function (err) {
