@@ -16,7 +16,7 @@ module.exports = {
                     error: err
                 })
             }
-            return res.status(201).data
+            return res.status(201).json(data)
         })
     },
 
